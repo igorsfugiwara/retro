@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase/firebaseConfig';
 import Column from './components/Column';
+import { collection, onSnapshot, doc, updateDoc } from 'firebase/firestore'; // Importe as funções necessárias
 import './App.css';
 
 function App() {
@@ -13,31 +14,32 @@ function App() {
 
   useEffect(() => {
     // Sincroniza as colunas com o Firestore
-    const unsubscribe = db.collection('columns').onSnapshot((snapshot) => {
+    const unsubscribe = onSnapshot(collection(db, 'columns'), (snapshot) => {
       const newColumns = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setColumns(newColumns);
     });
+
     return () => unsubscribe();
   }, []);
 
-  const handleAddCard = (columnIndex, content) => {
+  const handleAddCard = async (columnIndex, content) => {
     const newCard = { content, revealed: false };
-    const columnRef = db.collection('columns').doc(columns[columnIndex].id);
+    const columnRef = doc(db, 'columns', columns[columnIndex].id); // Obtém a referência do documento
 
-    columnRef.update({
+    await updateDoc(columnRef, {
       cards: [...columns[columnIndex].cards, newCard],
     });
   };
 
-  const handleRevealCard = (columnIndex, cardIndex) => {
+  const handleRevealCard = async (columnIndex, cardIndex) => {
     const updatedCards = [...columns[columnIndex].cards];
     updatedCards[cardIndex].revealed = true;
 
-    const columnRef = db.collection('columns').doc(columns[columnIndex].id);
-    columnRef.update({
+    const columnRef = doc(db, 'columns', columns[columnIndex].id);
+    await updateDoc(columnRef, {
       cards: updatedCards,
     });
   };
