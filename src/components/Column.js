@@ -12,6 +12,7 @@ const Column = ({ title, cards, onAddCard, onDeleteCard, onRevealCard, onRevealA
                 )}
                 <button onClick={() => onDeleteCard(index)}>Apagar</button>
             </div>
+            {card.userName && <span>por: <b>{card.userName}</b></span>}
         </div>
         ))}
         <div class="controls">

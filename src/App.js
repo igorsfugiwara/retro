@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase/firebaseConfig'; // Importando as funções do Firebase
+import { db } from './firebase/firebaseConfig';
 import Column from './components/Column';
-import { collection, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore'; // Importe as funções necessárias
+import { collection, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore';
 import './App.css';
 
 function App() {
@@ -10,8 +10,14 @@ function App() {
     { title: 'Parar de Fazer', cards: [] },
     { title: 'Continuar Fazendo', cards: [] },
   ]);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
+    const name = prompt("Por favor, insira o seu nome:");
+    if (name) {
+      setUserName(name);
+    }
+
     const unsubscribe = onSnapshot(collection(db, 'columns'), (snapshot) => {
       const newColumns = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -33,8 +39,8 @@ function App() {
       return;
     }
 
-    const newCard = { content, revealed: false };
-    const columnRef = doc(db, 'columns', column.id); // Obtém a referência do documento
+    const newCard = { content, revealed: false, userName };
+    const columnRef = doc(db, 'columns', column.id); 
 
     const columnData = (await getDoc(columnRef)).data();
     const currentCards = columnData?.cards || [];
@@ -118,7 +124,7 @@ function App() {
       {columns.length > 0 ? (
         columns.map((column, index) => (
           <Column
-            key={column.id} // Use column.id como chave
+            key={column.id}
             title={column.title}
             cards={column.cards}
             onAddCard={(content) => handleAddCard(index, content)}
