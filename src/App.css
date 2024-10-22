@@ -66,17 +66,19 @@ span {
 
 .add:hover{
   background-color: green;
-  transition: all 0.5s ease-out;
+  transition: all 0.2s ease-out;
   text-shadow: #FFF 0 0 5px;
+  color: #FFF;
 }
 .reveal:hover{
   background-color: yellow;
-  transition: all 0.5s ease-out;
+  transition: all 0.2s ease-out;
   text-shadow: #FFF 0 0 5px;
 
 }
 .delete:hover{
   background-color: rgb(255, 0, 0);
-  transition: all 0.5s ease-out;
+  transition: all 0.2s ease-out;
   text-shadow: #FFF 0 0 5px;
+  color: #FFF;
 }
