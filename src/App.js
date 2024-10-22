@@ -1,8 +1,7 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase/firebaseConfig';
+import { db } from './firebase/firebaseConfig'; // Importando as funções do Firebase
 import Column from './components/Column';
-import { collection, onSnapshot, doc, updateDoc } from 'firebase/firestore'; // Importe as funções necessárias
+import { collection, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore'; // Importe as funções necessárias
 import './App.css';
 
 function App() {
@@ -13,11 +12,11 @@ function App() {
   ]);
 
   useEffect(() => {
-    // Sincroniza as colunas com o Firestore
     const unsubscribe = onSnapshot(collection(db, 'columns'), (snapshot) => {
       const newColumns = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
+        title: doc.data().title || 'Sem Título',
+        cards: doc.data().cards || [],
       }));
       setColumns(newColumns);
     });
@@ -26,35 +25,112 @@ function App() {
   }, []);
 
   const handleAddCard = async (columnIndex, content) => {
+    if (!content) return; // Não adiciona card vazio
+
+    const column = columns[columnIndex];
+    if (!column || !column.id) {
+      console.error("Column or column ID is undefined.");
+      return;
+    }
+
     const newCard = { content, revealed: false };
-    const columnRef = doc(db, 'columns', columns[columnIndex].id); // Obtém a referência do documento
+    const columnRef = doc(db, 'columns', column.id); // Obtém a referência do documento
+
+    const columnData = (await getDoc(columnRef)).data();
+    const currentCards = columnData?.cards || [];
 
     await updateDoc(columnRef, {
-      cards: [...columns[columnIndex].cards, newCard],
+      cards: [...currentCards, newCard],
     });
   };
 
   const handleRevealCard = async (columnIndex, cardIndex) => {
-    const updatedCards = [...columns[columnIndex].cards];
+    const column = columns[columnIndex];
+    if (!column || !column.id) {
+      console.error("Column or column ID is undefined.");
+      return;
+    }
+
+    const updatedCards = [...column.cards];
     updatedCards[cardIndex].revealed = true;
 
-    const columnRef = doc(db, 'columns', columns[columnIndex].id);
+    const columnRef = doc(db, 'columns', column.id);
+
     await updateDoc(columnRef, {
       cards: updatedCards,
     });
   };
 
+  const handleDeleteCard = async (columnIndex, cardIndex) => {
+    const column = columns[columnIndex];
+    if (!column || !column.id) {
+      console.error("Column or column ID is undefined.");
+      return;
+    }
+
+    const updatedCards = [...column.cards];
+    updatedCards.splice(cardIndex, 1);
+
+    const columnRef = doc(db, 'columns', column.id);
+
+    await updateDoc(columnRef, {
+      cards: updatedCards,
+    });
+  };
+
+  const handleRevealAllCards = async (columnIndex) => {
+    const column = columns[columnIndex];
+    if (!column || !column.id) {
+      console.error("Column or column ID is undefined.");
+      return;
+    }
+
+    const updatedCards = column.cards.map((card) => ({
+      ...card,
+      revealed: true,
+    }));
+
+    const columnRef = doc(db, 'columns', column.id);
+
+    await updateDoc(columnRef, {
+      cards: updatedCards,
+    });
+  };
+
+  const handleDeleteAllCards = async (columnIndex) => {
+    if (!window.confirm("Tem certeza que deseja apagar todos os cards?")) return;
+
+    const column = columns[columnIndex];
+    if (!column || !column.id) {
+      console.error("Column or column ID is undefined.");
+      return;
+    }
+
+    const columnRef = doc(db, 'columns', column.id);
+
+    await updateDoc(columnRef, {
+      cards: [],
+    });
+  };
+
   return (
     <div className="app">
-      {columns.map((column, index) => (
-        <Column
-          key={index}
-          title={column.title}
-          cards={column.cards}
-          onAddCard={(content) => handleAddCard(index, content)}
-          onRevealCard={(cardIndex) => handleRevealCard(index, cardIndex)}
-        />
-      ))}
+      {columns.length > 0 ? (
+        columns.map((column, index) => (
+          <Column
+            key={column.id} // Use column.id como chave
+            title={column.title}
+            cards={column.cards}
+            onAddCard={(content) => handleAddCard(index, content)}
+            onRevealCard={(cardIndex) => handleRevealCard(index, cardIndex)}
+            onDeleteCard={(cardIndex) => handleDeleteCard(index, cardIndex)}
+            onRevealAll={() => handleRevealAllCards(index)}
+            onDeleteAll={() => handleDeleteAllCards(index)}
+          />
+        ))
+      ) : (
+        <p>Carregando colunas...</p>
+      )}
     </div>
   );
 }

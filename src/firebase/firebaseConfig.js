@@ -1,6 +1,6 @@
 // src/firebase/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore'; // Importa o Firestore
+import { getFirestore } from "firebase/firestore";
 
 // Sua configuração do Firebase
 const firebaseConfig = {
