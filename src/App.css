@@ -21,9 +21,9 @@ body , a{
   background: radial-gradient(
     circle at 100%,
     #67e1ff,
-    #37aeda 50%,
-    #2e59b1 75%,
-    #ffffff 5%
+    #37aeda 30%,
+    #2e59b1 65%,
+    #ffffff 95%
   );
   font-weight: 600;
   background-size: 200% auto;
