@@ -127,58 +127,58 @@ function App() {
   const handleLike = async (columnIndex, cardIndex) => {
     const column = columns[columnIndex];
     if (!column || !column.id) return;
-  
+
     const card = column.cards[cardIndex];
     if (!card) return;
-  
-    // Verifica se o usuário já interagiu com o card
-    if (card.interactedBy && card.interactedBy.includes(userName)) {
-      alert("Você já interagiu com este card!");
-      return;
-    }
-  
+
+    // Verifica se o usuário já deu like
+    const userHasLiked = card.likesBy?.includes(userName);
+
+    // Se o usuário já deu like, remove-o. Caso contrário, adiciona o like e remove o dislike, se presente.
     const updatedCard = {
-      ...card,
-      likes: (card.likes || 0) + 1,
-      interactedBy: [...(card.interactedBy || []), userName], // Armazena o usuário no array 'interactedBy'
+        ...card,
+        likes: userHasLiked ? card.likes - 1 : card.likes + 1,
+        dislikes: userHasLiked ? card.dislikes : Math.max(card.dislikes - 1, 0), // Evita valores negativos
+        likesBy: userHasLiked
+            ? card.likesBy.filter((user) => user !== userName)
+            : [...(card.likesBy || []), userName],
+        dislikesBy: userHasLiked ? card.dislikesBy : (card.dislikesBy || []).filter((user) => user !== userName),
     };
-  
+
     const updatedCards = [...column.cards];
     updatedCards[cardIndex] = updatedCard;
-  
+
     const columnRef = doc(db, selectedBoard, column.id);
-    await updateDoc(columnRef, {
-      cards: updatedCards,
-    });
-  };
-  
-  const handleDislike = async (columnIndex, cardIndex) => {
+    await updateDoc(columnRef, { cards: updatedCards });
+};
+
+const handleDislike = async (columnIndex, cardIndex) => {
     const column = columns[columnIndex];
     if (!column || !column.id) return;
-  
+
     const card = column.cards[cardIndex];
     if (!card) return;
-  
-    // Verifica se o usuário já interagiu com o card
-    if (card.interactedBy && card.interactedBy.includes(userName)) {
-      alert("Você já interagiu com este card!");
-      return;
-    }
-  
+
+    // Verifica se o usuário já deu dislike
+    const userHasDisliked = card.dislikesBy?.includes(userName);
+
+    // Se o usuário já deu dislike, remove-o. Caso contrário, adiciona o dislike e remove o like, se presente.
     const updatedCard = {
-      ...card,
-      dislikes: (card.dislikes || 0) + 1,
-      interactedBy: [...(card.interactedBy || []), userName], // Armazena o usuário no array 'interactedBy'
+        ...card,
+        dislikes: userHasDisliked ? card.dislikes - 1 : card.dislikes + 1,
+        likes: userHasDisliked ? card.likes : Math.max(card.likes - 1, 0), // Evita valores negativos
+        dislikesBy: userHasDisliked
+            ? card.dislikesBy.filter((user) => user !== userName)
+            : [...(card.dislikesBy || []), userName],
+        likesBy: userHasDisliked ? card.likesBy : (card.likesBy || []).filter((user) => user !== userName),
     };
-  
+
     const updatedCards = [...column.cards];
     updatedCards[cardIndex] = updatedCard;
-  
+
     const columnRef = doc(db, selectedBoard, column.id);
-    await updateDoc(columnRef, {
-      cards: updatedCards,
-    });
-  };
+    await updateDoc(columnRef, { cards: updatedCards });
+};
 
   return (
     <div className="app">
