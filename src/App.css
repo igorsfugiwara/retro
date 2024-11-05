@@ -75,8 +75,13 @@ body , a{
   padding: 5px;
 }
 
-.controls {
+.controls{
   gap: 3px;
+}
+
+.controls:has(> .add_card) {
+  width: 100%;
+  flex-direction: column;
 }
 
 .controls button {
@@ -153,6 +158,18 @@ span {
   background-color: #fff;
   color: #202124;
   transition: all .2s ease-in-out;
+}
+
+.add_card{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+textarea{
+  width: 98%;
+  height: 100px;
 }
 
 @media (max-width: 768px) {
