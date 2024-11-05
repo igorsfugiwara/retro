@@ -4,6 +4,12 @@ body , a{
   font-family: 'Roboto', sans-serif;
 }
 
+.app{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .app-wrapper {
   display: flex;
   justify-content: space-around;
@@ -33,6 +39,21 @@ body , a{
   animation: animatedTextGradient 1.5s linear infinite;
 }
 
+.back-button {
+  background-color: #202124;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 12px;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+  color: #202124;
+  transition: all .2s ease-in-out;
+}
 @keyframes animatedTextGradient {
   to {
     background-position: 200% center;
@@ -172,6 +193,11 @@ span {
 textarea {
   width: 99%;
   height: 100px;
+  color: #757575;
+  background-color: #fff;
+}
+img{
+  width: 150px;
 }
 
 @media (max-width: 768px) {

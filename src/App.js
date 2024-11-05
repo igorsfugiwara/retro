@@ -182,6 +182,16 @@ const handleDislike = async (columnIndex, cardIndex) => {
 
   return (
     <div className="app">
+          {selectedBoard && (
+      <button
+        className="back-button"
+        onClick={() => setSelectedBoard(null)}
+        style={{ position: 'absolute', top: '10px', left: '10px' }}
+      >
+        ⬅️ Voltar
+      </button>
+    )}
+        <img src='/logo-wbg.png' alt='logo'></img>
       <div className="app-wrapper"> 
       {!selectedBoard ? (
         <BoardSelection onBoardSelect={handleBoardSelect} />
