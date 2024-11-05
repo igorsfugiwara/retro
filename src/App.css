@@ -1,14 +1,42 @@
-body {
+body , a{
   background-color: #202124;
   color: #e8eaed;
   font-family: 'Roboto', sans-serif;
 }
 
-.app {
+.app-wrapper {
   display: flex;
   justify-content: space-around;
   padding: 20px;
   gap: 30px;
+}
+
+.credits{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credits a.repo {
+  background: radial-gradient(
+    circle at 100%,
+    #67e1ff,
+    #37aeda 50%,
+    #2e59b1 75%,
+    #7626ff 75%
+  );
+  font-weight: 600;
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedTextGradient 1.5s linear infinite;
+}
+
+@keyframes animatedTextGradient {
+  to {
+    background-position: 200% center;
+  }
 }
 
 .column {
@@ -67,18 +95,71 @@ span {
 .add:hover{
   background-color: green;
   transition: all 0.2s ease-out;
-  text-shadow: #FFF 0 0 5px;
-  color: #FFF;
+  text-shadow: #e8eaed 0 0 5px;
+  color: #e8eaed;
 }
 .reveal:hover{
   background-color: yellow;
   transition: all 0.2s ease-out;
-  text-shadow: #FFF 0 0 5px;
+  text-shadow: #e8eaed 0 0 5px;
 
 }
 .delete:hover{
   background-color: rgb(255, 0, 0);
   transition: all 0.2s ease-out;
-  text-shadow: #FFF 0 0 5px;
-  color: #FFF;
+  text-shadow: #e8eaed 0 0 5px;
+  color: #e8eaed;
+}
+.like-dislike{
+  display: flex;
+}
+
+.like-dislike button{
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #e8eaed;
+}
+
+.like-dislike button:hover{
+  border: none;
+  border-radius: 8px;
+  background-color: #e8eaed;
+  color: #202124;
+}
+
+
+.board-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.board-selection input {
+  height: 36px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.board-selection button {
+  height: 30px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  background-color: #5f6368;
+  color: #fff;
+}
+.board-selection button:hover{
+  background-color: #fff;
+  color: #202124;
+  transition: all .2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .app-wrapper{
+    overflow: auto;
+  }
+  .column {
+    width: 70vw;
+  }
 }
