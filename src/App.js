@@ -26,7 +26,7 @@ function App() {
       setColumns(newColumns);
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe(); 
   }, [selectedBoard]);
 
 
