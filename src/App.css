@@ -144,6 +144,8 @@ span {
   height: 36px;
   font-size: 18px;
   text-align: center;
+  color: #757575;
+  background-color: #fff;
 }
 
 .board-selection button {
