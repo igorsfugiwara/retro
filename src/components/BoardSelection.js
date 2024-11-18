@@ -3,25 +3,36 @@ import React, { useState, useEffect } from 'react';
 const BoardSelection = ({ onBoardSelect }) => {
     const [password, setPassword] = useState('');
     const [userName, setUserName] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [animateError, setAnimateError] = useState(false);
+    const [errors, setErrors] = useState({ userName: '', password: '' });
+    const [animations, setAnimations] = useState({ userName: false, password: false });
+
+    const teamNames = ['jupiter', 'xingu', 'turing', 'saturno', 'monaco', 'teste'];
+    const nameRegex = /^[a-zA-Z\s]{2,}$/;
+
+    const validateFields = () => {
+        let hasError = false;
+        if (!nameRegex.test(userName)) {
+            setErrors((prev) => ({ ...prev, userName: 'Insira um nome com pelo menos 2 letras.' }));
+            setAnimations((prev) => ({ ...prev, userName: true }));
+            hasError = true;
+        } else {
+            setErrors((prev) => ({ ...prev, userName: '' }));
+        }
+
+        if (!teamNames.includes(password.toLowerCase())) {
+            setErrors((prev) => ({ ...prev, password: 'Equipe não encontrada. Tente "teste" para acessar.' }));
+            setAnimations((prev) => ({ ...prev, password: true }));
+            hasError = true;
+        } else {
+            setErrors((prev) => ({ ...prev, password: '' }));
+        }
+
+        return hasError;
+    };
 
     const handleLogin = () => {
-        const teamNames = ['jupiter', 'xingu', 'turing', 'saturno', 'monaco', 'teste'];
-        const nameRegex = /^[a-zA-Z\s]{2,}$/;
-
-        if (!nameRegex.test(userName)) {
-            setErrorMessage(`Por favor, insira um nome válido com pelo menos 2 letras.
-(ex: "Ed")`);
-            setAnimateError(true);
-            return;
-        }
-        if (teamNames.includes(password.toLowerCase())) {
+        if (!validateFields()) {
             onBoardSelect(password.toLowerCase(), userName);
-        } else {
-            setErrorMessage(`Equipe não encontrada, favor verificar o nome.
-Você pode acessar com a palavra chave "teste"`);
-            setAnimateError(true);
         }
     };
 
@@ -32,35 +43,41 @@ Você pode acessar com a palavra chave "teste"`);
     };
 
     useEffect(() => {
-        if (animateError) {
-            const timer = setTimeout(() => setAnimateError(false), 500);
+        const resetAnimations = () => setAnimations({ userName: false, password: false });
+        if (animations.userName || animations.password) {
+            const timer = setTimeout(resetAnimations, 500);
             return () => clearTimeout(timer);
         }
-    }, [animateError]);
+    }, [animations]);
 
     return (
         <div className="board-selection">
             <h2>Entre com o nome do seu time e seu nome</h2>
+
             <input
                 type="text"
-                placeholder="Digite seu nome "
+                placeholder="Digite seu nome"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 onKeyDown={handleKeyDown}
-                style={{ borderColor: animateError ? 'red' : '' }}
-                className={animateError ? 'shake-animation' : ''} 
-                class="name"
+                style={{ borderColor: animations.userName ? 'red' : '' }}
+                className={animations.userName ? 'shake-animation' : ''}
             />
+
             <input
                 type="text"
                 placeholder="Digite o nome da sua equipe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={handleKeyDown}
-                style={{ borderColor: animateError ? 'red' : '' }}
-                className={animateError ? 'shake-animation' : ''} 
+                style={{ borderColor: animations.password ? 'red' : '' }}
+                className={animations.password ? 'shake-animation' : ''}
             />
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <div className="errors">
+            {errors.userName && <p className="error-message">{errors.userName}</p>}
+            {errors.password && <p className="error-message">{errors.password}</p>}
+            </div>
+
             <button onClick={handleLogin}>Entrar</button>
         </div>
     );

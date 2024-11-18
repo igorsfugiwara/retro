@@ -241,11 +241,17 @@ img {
 
 .error-message {
   color: rgba(255, 255, 0, 0.933);
+  margin: .2em 0;
 }
 
 .interation-at-cards {
   display: flex;
   flex-direction: row-reverse;
+}
+.errors{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 @media (max-width: 768px) {
