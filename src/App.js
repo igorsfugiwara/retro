@@ -30,13 +30,10 @@ function App() {
   }, [selectedBoard]);
 
 
-  const handleBoardSelect = (boardName) => {
-    setSelectedBoard(boardName); // Atualiza o board selecionado
-    const name = prompt("Por favor, insira o seu nome:");
-    if (name) {
-      setUserName(name);
-    }
-  };
+  const handleBoardSelect = (boardName, userName) => {
+    setSelectedBoard(boardName);
+    setUserName(userName);
+};
 
   const handleAddCard = async (columnIndex, content) => {
     if (!content) return; // Não adiciona card vazio

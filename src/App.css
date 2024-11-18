@@ -1,10 +1,11 @@
-body , a{
+body,
+a {
   background-color: #202124;
   color: #e8eaed;
   font-family: 'Roboto', sans-serif;
 }
 
-.app{
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,20 +18,18 @@ body , a{
   gap: 30px;
 }
 
-.credits{
+.credits {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .credits a.repo {
-  background: radial-gradient(
-    circle at 100%,
-    #67e1ff,
-    #37aeda 30%,
-    #2e59b1 65%,
-    #ffffff 95%
-  );
+  background: radial-gradient(circle at 100%,
+      #67e1ff,
+      #37aeda 30%,
+      #2e59b1 65%,
+      #ffffff 95%);
   font-weight: 600;
   background-size: 200% auto;
   color: #000;
@@ -54,6 +53,7 @@ body , a{
   color: #202124;
   transition: all .2s ease-in-out;
 }
+
 @keyframes animatedTextGradient {
   to {
     background-position: 200% center;
@@ -77,6 +77,12 @@ body , a{
   flex-direction: column;
 }
 
+.card-content {
+  background-color: #767b82;
+  padding: 1em .2em;
+  border-radius: 4px;
+}
+
 .buttons,
 .buttons button,
 .controls,
@@ -96,7 +102,7 @@ body , a{
   padding: 5px;
 }
 
-.controls{
+.controls {
   gap: 3px;
 }
 
@@ -110,6 +116,12 @@ body , a{
   border-radius: 10px;
   padding: 8px;
   font-weight: 700;
+  align-items: center;
+}
+
+.reveal,
+.delete {
+  align-items: center;
 }
 
 span {
@@ -118,47 +130,66 @@ span {
   justify-content: flex-end;
 }
 
-.add:hover{
+.add:hover {
   background-color: green;
   transition: all 0.2s ease-out;
-  text-shadow: #e8eaed 0 0 5px;
   color: #e8eaed;
 }
-.reveal:hover{
+
+.add svg,
+.delete svg,
+.reveal svg {
+  stroke: #000;
+}
+
+.add:hover svg,
+.delete:hover svg {
+  stroke: #e8eaed;
+  transition: all 0.2s ease-out;
+}
+
+.reveal:hover {
   background-color: yellow;
   transition: all 0.2s ease-out;
-  text-shadow: #e8eaed 0 0 5px;
-
 }
-.delete:hover{
+
+.delete:hover {
   background-color: rgb(255, 0, 0);
   transition: all 0.2s ease-out;
-  text-shadow: #e8eaed 0 0 5px;
   color: #e8eaed;
 }
-.like-dislike{
+
+.like-dislike {
   display: flex;
+  width: 120px;
 }
 
-.like-dislike button{
+.like-dislike button {
   border: none;
   border-radius: 8px;
   background-color: transparent;
   color: #e8eaed;
+  display: flex;
+  gap: 2px;
+  align-items: center;
 }
 
-.like-dislike button:hover{
+.like-dislike button:hover {
   border: none;
   border-radius: 8px;
   background-color: #e8eaed;
   color: #202124;
 }
 
+.like-dislike button:hover svg{
+  fill: #000;
+}
 
 .board-selection {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 500px;
 }
 
 .board-selection input {
@@ -167,6 +198,12 @@ span {
   text-align: center;
   color: #757575;
   background-color: #fff;
+}
+.board-selection input.name {
+  background-image: url("../public/man.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-position-x: 137px;
 }
 
 .board-selection button {
@@ -177,13 +214,14 @@ span {
   background-color: #5f6368;
   color: #fff;
 }
-.board-selection button:hover{
+
+.board-selection button:hover {
   background-color: #fff;
   color: #202124;
   transition: all .2s ease-in-out;
 }
 
-.add_card{
+.add_card {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -196,15 +234,35 @@ textarea {
   color: #757575;
   background-color: #fff;
 }
-img{
+
+img {
   width: 150px;
 }
 
+.error-message {
+  color: rgba(255, 255, 0, 0.933);
+}
+
+.interation-at-cards {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 @media (max-width: 768px) {
-  .app-wrapper{
+  .app-wrapper {
+    width: 100%;
     overflow: auto;
   }
+
   .column {
     width: 70vw;
+  }
+
+  .board-selection {
+    width: 275px;
+  }
+
+  .board-selection input.name {
+    background-position-x: 20px;
   }
 }
