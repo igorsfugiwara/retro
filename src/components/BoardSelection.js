@@ -62,6 +62,7 @@ const BoardSelection = ({ onBoardSelect }) => {
                 onKeyDown={handleKeyDown}
                 style={{ borderColor: animations.userName ? 'red' : '' }}
                 className={animations.userName ? 'shake-animation' : ''}
+                class="name"
             />
 
             <input
