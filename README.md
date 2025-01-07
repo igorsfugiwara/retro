@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Ferramenta de Retrospectiva Interativa
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Este projeto é uma aplicação web interativa desenvolvida com React, que permite a realização de retrospectivas ágeis em equipes. Os usuários podem criar, visualizar e interagir com cartões organizados em colunas. A aplicação suporta autenticação de equipe, mascaramento de conteúdo, funcionalidades de likes/dislikes, e muito mais.
 
-In the project directory, you can run:
+A ferramenta de retrospectiva para equipes permite a criação de um quadro colaborativo com cartões em três categorias: "Começar a Fazer", "Parar de Fazer" e "Continuar Fazendo". Esta aplicação React é integrada ao Firebase para gerenciar os dados de forma dinâmica e colaborativa, permitindo que múltiplos usuários adicionem, revelem, excluam e interajam com cartões durante a retrospectiva.
 
-### `npm start`
+Para começar a explorar as funcionalidades da ferramenta, você pode acessar a sala "teste". Basta inserir "teste" no campo de seleção de equipe durante o login. Convide um colega para se conectar à mesma sala e experimentar juntos as interações, como criar, revelar e interagir com cartões em tempo real. Essa é uma excelente forma de entender como a ferramenta funciona de maneira colaborativa!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Funcionalidades
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Autenticação por equipe**: Acesso restrito com seleção de nome e equipe.
+- **Colunas interativas**:
+  - **Começar a Fazer**
+  - **Parar de Fazer**
+  - **Continuar Fazendo**
+- **Gestão de cartões**:
+  - Adicionar cartões.
+  - Revelar conteúdo dos cartões.
+  - Apagar cartões individuais ou todos de uma coluna.
+- **Interações nos cartões**:
+  - Dar likes ou dislikes, limitados por usuário.
+  - Exibir autor do cartão.
+- **Persistência em tempo real**: Integração com Firebase Firestore para sincronização de dados.
+- **Design responsivo e intuitivo**.
 
-### `npm test`
+## Tecnologias Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend**:
+  - React
+  - CSS
+- **Backend**:
+  - Firebase Firestore
+- **Outras Bibliotecas**:
+  - Firebase SDK
 
-### `npm run build`
+## Pré-requisitos
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js >= 16
+- Conta no Firebase configurada para Firestore
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Como Executar
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone este repositório:
+    ```bash
+    git clone https://github.com/igorsfugiwara/retro.git
+    ```
 
-### `npm run eject`
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd retro
+    ```
+3. Instale as dependências:
+    ```bash
+    npm install
+    ```
+4. Configure o Firebase com suas credenciais e edite a configuração no arquivo firebaseConfig.js.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. Inicie o servidor de desenvolvimento:
+    ```bash
+    npm start
+    ```
+6. Acesse a aplicação no seu navegador em http://localhost:3000.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Componentes
+### App.js
+O componente principal que gerencia a seleção do quadro e o estado das colunas e cartões.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Funções principais**:
+    - Seleção do quadro (login com nome do time e usuário)
+    - Exibição e interação com as colunas de retrospectiva
+    - Adição, revelação e exclusão de cartões
+    - Likes e dislikes nos cartões
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### BoardSelection.js
+Tela de login onde os usuários inserem o nome da equipe e seu nome pessoal para acessar o quadro.
 
-## Learn More
+- **Validação**:
+    - Verificação do nome do usuário (mínimo de 2 caracteres alfabéticos)
+    - Verificação do nome da equipe (dentre uma lista de equipes predefinidas)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Column.js
+Componente que exibe uma coluna de retrospectiva com os cartões. Permite a interação com os cartões, como adicionar, revelar, excluir e curtir/descurtir.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Como Contribuir
+1. Faça um fork deste repositório.
+2. Crie uma nova branch para a sua feature ou correção (git checkout -b feature/nova-feature).
+3. Faça as alterações necessárias.
+4. Comite suas alterações (git commit -am 'Adiciona nova feature').
+5. Envie para o seu repositório (git push origin feature/nova-feature).
+6. Abra um Pull Request.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Desenvolvido por Igor Simões Fugiwara
