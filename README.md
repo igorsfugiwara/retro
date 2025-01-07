@@ -7,6 +7,9 @@ A ferramenta de retrospectiva para equipes permite a criação de um quadro cola
 
 Para começar a explorar as funcionalidades da ferramenta, você pode acessar a sala "teste". Basta inserir "teste" no campo de seleção de equipe durante o login. Convide um colega para se conectar à mesma sala e experimentar juntos as interações, como criar, revelar e interagir com cartões em tempo real. Essa é uma excelente forma de entender como a ferramenta funciona de maneira colaborativa!
 
+https://retro-igor-lorem-ipsum.netlify.app/
+
+
 ## Funcionalidades
 
 - **Autenticação por equipe**: Acesso restrito com seleção de nome e equipe.
