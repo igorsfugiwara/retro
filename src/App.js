@@ -188,7 +188,7 @@ const handleDislike = async (columnIndex, cardIndex) => {
         ⬅️ Voltar
       </button>
     )}
-        <img src='/logo-wbg.png' alt='logo'></img>
+        <img class='logo' src='/logo-wbg.png' alt='logo'></img>
       <div className="app-wrapper"> 
       {!selectedBoard ? (
         <BoardSelection onBoardSelect={handleBoardSelect} />

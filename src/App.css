@@ -235,6 +235,10 @@ textarea {
   background-color: #fff;
 }
 
+.logo {
+  margin: 4em 0 2em;
+}
+
 img {
   width: 150px;
 }
