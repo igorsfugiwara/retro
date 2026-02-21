@@ -1,8 +1,7 @@
-// src/firebase/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
 
-// Sua configuração do Firebase
+// Configuração do Firebase fornecida pelo usuário
 const firebaseConfig = {
     apiKey: "AIzaSyBe4QY6fXl_K52niYnLkqPe44iuZgNLdc0",
     authDomain: "retro-comunista.firebaseapp.com",
@@ -10,14 +9,10 @@ const firebaseConfig = {
     storageBucket: "retro-comunista.appspot.com",
     messagingSenderId: "851843394865",
     appId: "1:851843394865:web:b09c39eb82429750f29410",
-    measurementId: "G-3KVDGHGXHY", // Essa linha é opcional
+    measurementId: "G-3KVDGHGXHY",
 };
 
-// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
-
-// Configura o Firestore
 const db = getFirestore(app);
 
-// Exporta o Firestore para uso em outros arquivos
 export { db };
