@@ -6,7 +6,7 @@ const BoardSelection = ({ onBoardSelect }) => {
     const [errors, setErrors] = useState({ userName: '', password: '' });
     const [animations, setAnimations] = useState({ userName: false, password: false });
 
-    const teamNames = ['jupiter', 'xingu', 'xingu1', 'turing', 'saturno', 'monaco', 'teste'];
+    const teamNames = ['jupiter', 'xingu', 'xingu1', 'turing', 'saturno', 'monaco', 'teste', 'sala1'];
     const nameRegex = /^[a-zA-Z\s]{2,}$/;
 
     const validateFields = () => {
